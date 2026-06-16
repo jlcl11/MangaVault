@@ -78,17 +78,21 @@ Built with SwiftUI, SwiftData and `@Observable` throughout. JWT auth with Keycha
 ## Project Structure
 
 ```
-SDP26/                     Main app target
-  System/                  App entry, NetworkMonitor, Widget refresh, AI tools
-  Views/                   SwiftUI screens (Auth, Manga list/detail, Collection, AI profile)
-    Components/            Reusable cards, rows, image loader
-    iPad/                  Split-view layouts
-  ViewModels/              @Observable state holders
-  Model/                   DTOs (MangaDTO, AuthorDTO, CollectionDTO)
-  DataModel/               SwiftData entities, AuthDataSource, KeychainStorage
-  Network/                 NetworkRepository + endpoint definitions
-NetworkAPI/                Swift Package extracted for network layer
-MangaWidget/               WidgetKit extension (small / medium / large)
+MangaVault/                Repository root
+  NetworkAPI/              Swift Package (Swift 6.2) for the network layer
+  SDP26/                   App target folder
+    SDP26.xcodeproj
+    SDP26/                 Source root
+      System/              App entry, NetworkMonitor, SharedImageCache,
+                           WidgetDataManager, AI/ (FoundationModels tools)
+      Views/               SwiftUI screens (Auth, Manga list/detail, Collection,
+                           AI profile) + Components + iPad
+      ViewModels/          @Observable state holders (16+ VMs)
+      Model/               DTOs (MangaDTO, AuthorDTO, CollectionDTO)
+      DataModel/           SwiftData entities, ModelActor (CollectionDataContainer),
+                           AuthDataSource, KeychainStorage, PendingCollectionChange
+      Network/             NetworkRepository + endpoint URLs
+    MangaWidget/           WidgetKit extension (small / medium / large)
 ```
 
 ---
@@ -124,7 +128,7 @@ Every collection mutation goes through the repository. When offline, it persists
 
 ```bash
 git clone https://github.com/jlcl11/MangaVault.git
-cd MangaVault
+cd MangaVault/SDP26
 open SDP26.xcodeproj
 ```
 
