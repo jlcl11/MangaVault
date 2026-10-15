@@ -15,8 +15,8 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/iOS_17%2B-000000?style=for-the-badge&logo=apple&logoColor=white" alt="iOS 17+">
-  <img src="https://img.shields.io/badge/Swift_5.9-F05138?style=for-the-badge&logo=swift&logoColor=white" alt="Swift 5.9">
+  <img src="https://img.shields.io/badge/iOS_26.1%2B-000000?style=for-the-badge&logo=apple&logoColor=white" alt="iOS 26.1+">
+  <img src="https://img.shields.io/badge/Swift_6-F05138?style=for-the-badge&logo=swift&logoColor=white" alt="Swift 6">
   <img src="https://img.shields.io/badge/SwiftUI-007AFF?style=for-the-badge&logo=swift&logoColor=white" alt="SwiftUI">
   <img src="https://img.shields.io/badge/SwiftData-FF9500?style=for-the-badge&logo=swift&logoColor=white" alt="SwiftData">
   <img src="https://img.shields.io/badge/Universal-iPhone%20%2B%20iPad-AF52DE?style=for-the-badge&logo=apple&logoColor=white" alt="Universal">
@@ -28,7 +28,7 @@
 
 MangaVault is a universal iOS + iPadOS app to discover thousands of manga titles, manage a personal collection across devices, and surface AI-powered reader insights. It combines an authenticated REST API with an offline-first local cache, a home screen widget for the currently reading pile, and Apple Intelligence integration for personalised recommendations.
 
-Built with SwiftUI, SwiftData and `@Observable` throughout. JWT auth with Keychain storage. Strict separation between presentation, domain, persistence and network.
+Built with SwiftUI, SwiftData and `@Observable` throughout. JWT auth with Keychain storage. Clear separation between presentation, persistence and network.
 
 ---
 
@@ -79,7 +79,7 @@ Built with SwiftUI, SwiftData and `@Observable` throughout. JWT auth with Keycha
 
 ```
 MangaVault/                Repository root
-  NetworkAPI/              Swift Package (Swift 6.2) for the network layer
+  NetworkAPI/              Swift package for the network layer (see Credits)
   SDP26/                   App target folder
     SDP26.xcodeproj
     SDP26/                 Source root
@@ -124,7 +124,7 @@ Every collection mutation goes through the repository. When offline, it persists
 
 ## Quick Start
 
-**Requirements:** Xcode 15+ · iOS 17+ / iPadOS 17+ · Swift 5.9+ · Apple Developer account (widget + AI)
+**Requirements:** Xcode 26+ · iOS 26.1+ / iPadOS 26.1+ · Swift 6 · a device with Apple Intelligence for the AI profile
 
 ```bash
 git clone https://github.com/jlcl11/MangaVault.git
@@ -132,7 +132,7 @@ cd MangaVault/SDP26
 open SDP26.xcodeproj
 ```
 
-Configure App Groups (`group.mangavault.shared`) and select your signing team. The API base URL points to a hosted backend by default — no extra setup needed.
+Configure the App Group shared by the app and the widget (`group.prueba.offi`) and select your signing team. The API base URL points to a hosted backend by default — no extra setup needed.
 
 ---
 
@@ -140,9 +140,9 @@ Configure App Groups (`group.mangavault.shared`) and select your signing team. T
 
 | Technology | Role |
 |---|---|
-| **Swift 5.9 + async/await** | Concurrency throughout, `Sendable` correctness |
+| **Swift 6 + async/await** | Actor-based data sources and a `@ModelActor` for SwiftData |
 | **SwiftUI + @Observable** | Declarative UI with reactive state |
-| **SwiftData** | Versioned local persistence with `ModelContainer` |
+| **SwiftData** | Local cache and offline change queue |
 | **WidgetKit** | Home screen widgets sharing data via App Groups |
 | **FoundationModels** | Apple Intelligence — `LanguageModelSession` + `@Generable` |
 | **URLSession** | Async REST client, no third-party networking deps |
@@ -155,6 +155,10 @@ Configure App Groups (`group.mangavault.shared`) and select your signing team. T
 ## API Reference
 
 `GET /list/mangas`, `GET /list/bestMangas`, `POST /search/manga` · `POST /users`, `POST /users/jwt/login`, `POST /users/jwt/refresh`, `GET /users/jwt/me` · `GET /collection/manga`, `POST /collection/manga`, `DELETE /collection/manga/{id}`.
+
+## Credits
+
+The `NetworkAPI` package is based on the networking code from Apple Coding Academy's Swift Developer Program (Julio César Fernández Muñoz). MangaVault was my final project for that program, graded 9/10.
 
 ---
 
